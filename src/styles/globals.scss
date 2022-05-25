@@ -1,0 +1,47 @@
+@import '~sanitize.css';
+@import '~sanitize.css/assets.css';
+@import '~sanitize.css/forms.css';
+@import '~sanitize.css/reduce-motion.css';
+@import '~sanitize.css/typography.css';
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Montserrat', 'Open Sans', Calibri, Tahoma, Sans-Serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: 400;
+  margin-bottom: initial;
+}
+
+p {
+  margin: initial;
+}
+
+.ant-steps-item-wait,
+.ant-steps-item-finish {
+  .ant-steps-item-subtitle {
+    display: none;
+  }
+}
+.ant-modal-close-x {
+  display: none;
+}

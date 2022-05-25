@@ -1,0 +1,47 @@
+{
+  "root": true, // Make sure eslint picks up the config at the root of the directory
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2021, // Use the latest ecmascript standard
+    "sourceType": "module", // Allows using import/export statements
+    "ecmaFeatures": { "jsx": true  } // Enable JSX since we're using React
+  },
+  "env": {
+    "browser": true, // Enables browser globals like window and document
+    "node": true // Enables Node.js global variables and Node.js scoping
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
+    // Prettier plugin and recommended rules
+    "plugin:prettier/recommended" // Make this the last element so prettier config
+  ],
+  "rules": {
+    // Include .prettierrc.js rules
+    "prettier/prettier": ["error", {}, { "usePrettierrc": true }], // Use our .prettierrc file as source
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "labelComponents": [],
+        "labelAttributes": [],
+        "controlComponents": [],
+        "assert": "either",
+        "depth": 25
+      }
+    ],
+    "@typescript-eslint/no-explicit-any": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect" // Automatically detect the react version
+    }
+  }
+}

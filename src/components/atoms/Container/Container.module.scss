@@ -1,0 +1,43 @@
+@import "../../../styles/baseline/_styles";
+
+.container {
+  max-width: 1220px;
+  padding: 0 30px;
+  margin: 0 auto;
+  width: 100%;
+
+  @include respond-to($bp-md) {
+    padding: 0 20px;
+  }
+
+  &.right {
+    max-width: calc(((100% - 1220px) / 2) + 1220px);
+    margin-right: 0;
+    padding-right: initial;
+
+    @include respond-to($bp-lg) {
+      padding-right: 30px;
+      margin-right: auto;
+    }
+
+    @include respond-to($bp-md) {
+      padding-right: 20px;
+    }
+  }
+
+  &.left {
+    max-width: calc(((100% - 1220px) / 2) + 1220px);
+    margin-left: 0;
+    padding-left: initial;
+
+    @include respond-to($bp-lg) {
+      padding-left: 30px;
+      margin-left: auto;
+    }
+
+    @include respond-to($bp-md) {
+      padding-left: 20px;
+    }
+  }
+}
+

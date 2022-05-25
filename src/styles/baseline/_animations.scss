@@ -1,0 +1,6 @@
+$hover-duration: 0.2s;
+$global-transition: all $hover-duration ease-in;
+
+.hover-animation-basic {
+	transition: all $hover-duration ease-in;
+}

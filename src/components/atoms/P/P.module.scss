@@ -1,0 +1,31 @@
+@import "../../../styles/baseline/_styles";
+
+.p {
+  font-weight: $regular;
+
+  // Small
+  &.sm {
+    font-size: rem-calc(16);
+    line-height: rem-calc(23);
+    font-family: $font-secondary;
+  }
+
+  // Medium
+  &.md {
+    font-size: rem-calc(22);
+    line-height: rem-calc(29);
+    font-family: $font-primary;
+  }
+
+  // Large
+  &.lg {
+    font-size: rem-calc(26);
+    line-height: rem-calc(35);
+    font-family: $font-secondary;
+
+    @include respond-to($bp-md) {
+      font-size: rem-calc(21);
+      line-height: rem-calc(29);
+    }
+  }
+}
