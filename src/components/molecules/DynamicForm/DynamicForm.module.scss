@@ -1,0 +1,13 @@
+@import "../../../styles/baseline/_styles";
+
+.question-title {
+  label, input {
+    font-size: rem-calc(17);
+  }
+}
+
+.list-options {
+  background-color: rgba($color-grey, .1);
+  padding: 10px;
+  margin-bottom: 20px;
+}
