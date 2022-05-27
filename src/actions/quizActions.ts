@@ -11,7 +11,7 @@ export const setQuestionary = (questionary: QuestionaryProps) => {
   }
 }
 
-export const setMyChoice = (myChoice: QuestionaryProps) => {
+export const setMyChoice = (myChoice: any) => {
   return async (dispatch: any) => {
     await dispatch({
       type: types.SET_MY_CHOICE,

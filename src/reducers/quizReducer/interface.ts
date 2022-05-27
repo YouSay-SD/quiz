@@ -1,3 +1,7 @@
+import { Action, AnyAction } from 'redux'
+import { ThunkDispatch } from 'redux-thunk'
+import { RootStore } from '../../store/store'
+
 export interface quizProps {
   questionnaires: QuestionaryProps[]
   questionary: QuestionaryProps
@@ -33,3 +37,17 @@ export interface ChoiceProps {
   question: string
   choice: string
 }
+
+export type ThunkAction<
+  R, // Return type of the thunk function
+  S, // state type used by getState
+  E, // any "extra argument" injected into the thunk
+  A extends Action // known types of actions that can be dispatched
+> = (dispatch: ThunkDispatch<S, E, A>, getState: () => S, extraArgument: E) => R
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootStore,
+  unknown,
+  AnyAction
+>
