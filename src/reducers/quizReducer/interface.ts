@@ -24,6 +24,7 @@ export interface QuestionOptionProps {
 }
 
 export interface MyChoiceProps {
+  find: any
   myChoice: ChoiceProps[]
 }
 

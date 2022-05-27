@@ -1,5 +1,14 @@
 @import "../../../styles/baseline/_styles";
 
+.questionary-title {
+  border-bottom: 1px solid $color-grey;
+  padding-bottom: 10px;
+
+  label, input {
+    font-size: rem-calc(20);
+  }
+}
+
 .question-title {
   label, input {
     font-size: rem-calc(17);

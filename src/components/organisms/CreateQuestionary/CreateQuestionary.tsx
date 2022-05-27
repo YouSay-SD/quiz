@@ -7,7 +7,7 @@ const CreateQuestionary: FC = () => {
   return (
     <section className={styles['create-questionary']}>
       <Container>
-        <DynamicForm />
+        <DynamicForm operation="create" />
       </Container>
     </section>
   )

@@ -1,10 +1,23 @@
-import React from 'react'
-import { Menu as MenuAntd } from 'antd'
+import React, { FC } from 'react'
+import { Button, Menu as MenuAntd } from 'antd'
+import { signOut } from 'next-auth/react'
+import Link from 'next/link'
 
-
-const Menu = () => {
+const Menu: FC = () => {
   return (
-    <div>Menu</div>
+    <div>
+      <Button type="primary" htmlType="submit" onClick={() => signOut()}>
+        Log Out
+      </Button>
+
+      <Link href="/create">
+        <a href="/create">
+          <Button type="primary" htmlType="submit">
+            Create Questionary
+          </Button>
+        </a>
+      </Link>
+    </div>
   )
 }
 

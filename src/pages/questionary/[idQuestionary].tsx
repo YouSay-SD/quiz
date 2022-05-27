@@ -5,6 +5,7 @@ import { Hero, Questionary } from '../../components/organisms'
 import { HeadSeo, Layout } from '../../components/templates'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { getQuestionaryById } from '../../services/vivatranslate'
+import { getSession } from 'next-auth/react'
 
 const QuestionaryPage: NextPage = ({ questionary }: any) => {
   const dispatch = useAppDispatch()
@@ -29,8 +30,22 @@ export default QuestionaryPage
 
 // Server Props
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  query,
+}) => {
+  const session = await getSession({ req })
   const { idQuestionary } = query
+
+  // Redirect to Login
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/api/auth/signin',
+        permanent: false,
+      },
+    }
+  }
 
   const getDataQuestionary = async (id: string) => {
     try {

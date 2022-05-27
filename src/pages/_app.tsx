@@ -2,13 +2,19 @@
 import type { AppProps /*, AppContext */ } from 'next/app'
 import { Provider } from 'react-redux'
 import { store } from '../store/store'
+import { SessionProvider } from 'next-auth/react'
+import { AnimatePresence } from 'framer-motion'
 import 'antd/dist/antd.css'
 import '../styles/globals.scss'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
-      <Component {...pageProps} />
+      <SessionProvider session={pageProps.session}>
+        <AnimatePresence exitBeforeEnter>
+          <Component {...pageProps} />
+        </AnimatePresence>
+      </SessionProvider>
     </Provider>
   )
 }

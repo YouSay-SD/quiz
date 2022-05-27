@@ -14,7 +14,7 @@ const MyResult: FC<MyResultProps> = ({ questionary, myChoice }) => {
   }
 
   return (
-    <section>
+    <section className={styles['my-result']}>
       <Container>
         <div className={styles.result}>
           {questionary?.questions.map((question, index) => {

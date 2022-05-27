@@ -4,10 +4,38 @@ import { FC } from 'react'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import { Button, Checkbox, Form, Input, Space, Switch } from 'antd'
 import { DynamicFormProps } from './interface'
+import { createQuestionary } from '../../../services/vivatranslate'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
-const DynamicForm: FC<DynamicFormProps> = ({ initValue }) => {
-  const onFinish = (values) => {
+const DynamicForm: FC<DynamicFormProps> = ({ initValue, operation }) => {
+  const { data: session } = useSession()
+  const router = useRouter()
+
+  const onFinish = async (values) => {
     console.log('Received values of form:', values)
+
+    if (operation === 'create') {
+      try {
+        const questionaryToSend = {
+          title: values.questionaryTitle,
+          questions: values.questionary,
+        }
+        await createQuestionary(questionaryToSend, session.accessToken)
+
+        router.push('/')
+      } catch (err) {
+        return null
+      }
+    }
+
+    // if (operation === 'edit') {
+    //   try {
+    //     createQuestionary( , session.accessToken)
+    //   } catch {
+
+    //   }
+    // }
   }
 
   return (
@@ -17,6 +45,19 @@ const DynamicForm: FC<DynamicFormProps> = ({ initValue }) => {
       initialValues={{ questionary: initValue ?? null }}
       autoComplete="off"
     >
+      <Form.Item
+        className={styles['questionary-title']}
+        name={['questionaryTitle']}
+        label="Questionary Title"
+        rules={[
+          {
+            required: true,
+            message: 'Missing first name',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
       <Form.List name="questionary">
         {(fields, { add, remove }) => (
           <>
@@ -33,7 +74,7 @@ const DynamicForm: FC<DynamicFormProps> = ({ initValue }) => {
                   <Form.Item
                     {...restField}
                     className={styles['question-title']}
-                    name={[name, 'question']}
+                    name={[name, 'title']}
                     label="Question Title"
                     rules={[
                       {
@@ -63,7 +104,7 @@ const DynamicForm: FC<DynamicFormProps> = ({ initValue }) => {
                         >
                           <Form.Item
                             {...restField}
-                            name={[name, 'option']}
+                            name={[name, 'title']}
                             label="Option"
                             rules={[
                               {

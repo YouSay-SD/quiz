@@ -1,6 +1,7 @@
-import { NextPage } from 'next'
+import { NextPage, GetServerSideProps } from 'next'
 import { CreateQuestionary, Hero } from '../components/organisms'
 import { HeadSeo, Layout } from '../components/templates'
+import { getSession } from 'next-auth/react'
 
 const Create: NextPage = () => {
   return (
@@ -16,3 +17,21 @@ const Create: NextPage = () => {
 }
 
 export default Create
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req })
+
+  // Redirect to Login
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/api/auth/signin',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {},
+  }
+}

@@ -1,7 +1,13 @@
 import { FC } from 'react'
+import Menu from '../../organisms/Menu/Menu'
 
 const Layout: FC = ({ children }: any) => {
-  return <main>{children}</main>
+  return (
+    <>
+      <Menu />
+      <main>{children}</main>
+    </>
+  )
 }
 
 export default Layout

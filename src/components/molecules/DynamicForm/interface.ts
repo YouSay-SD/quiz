@@ -1,3 +1,4 @@
 export interface DynamicFormProps {
-  initValue: any
+  initValue?: any
+  operation: 'create' | 'edit' | string
 }
