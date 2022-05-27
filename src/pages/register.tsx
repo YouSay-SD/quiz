@@ -120,7 +120,6 @@ const Register: NextPage = () => {
 export default Register
 
 // Server Props
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req })
 

@@ -7,10 +7,12 @@
 .selected {
   opacity: .5;
   border: 2px solid $color-black;
+  background-color: $color-red;
+  color: $color-white;
 }
 
 .active {
-  background-color: $color-secondary;
+  background-color: $color-secondary !important;
   color: $color-white;
 }
 

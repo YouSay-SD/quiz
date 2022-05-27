@@ -1,6 +1,6 @@
 import { NextPage, GetServerSideProps } from 'next'
 import { getSession, useSession } from 'next-auth/react'
-import { Questionnaires } from '../components/organisms'
+import { Hero, Questionnaires } from '../components/organisms'
 import { HeadSeo, Layout } from '../components/templates'
 import { getAllQuestionaries } from '../services/vivatranslate'
 
@@ -13,6 +13,7 @@ const IndexPage: NextPage = ({ questionaries }: any) => {
       <HeadSeo title="Quiz" />
 
       <Layout>
+        <Hero title="Play one of them!" />
         <Questionnaires questionnaires={questionaries} />
       </Layout>
     </>

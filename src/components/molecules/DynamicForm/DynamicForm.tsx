@@ -1,26 +1,35 @@
 import styles from './DynamicForm.module.scss'
 import 'antd/dist/antd.css'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import { Button, Checkbox, Form, Input, Space, Switch } from 'antd'
 import { DynamicFormProps } from './interface'
-import { createQuestionary } from '../../../services/vivatranslate'
+import {
+  createQuestionary,
+  editQuestionary,
+} from '../../../services/vivatranslate'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import { useAppSelector } from '../../../hooks/useAppSelector'
 
-const DynamicForm: FC<DynamicFormProps> = ({ initValue, operation }) => {
+const DynamicForm: FC<DynamicFormProps> = ({ initValue = null, operation }) => {
+  const { questionary } = useAppSelector((state) => state.quiz)
   const { data: session } = useSession()
   const router = useRouter()
+
+  console.log('INIT VALUE', initValue)
+  console.log('questionary', questionary)
 
   const onFinish = async (values) => {
     console.log('Received values of form:', values)
 
+    const questionaryToSend = {
+      title: values.title,
+      questions: values.questionary,
+    }
+
     if (operation === 'create') {
       try {
-        const questionaryToSend = {
-          title: values.questionaryTitle,
-          questions: values.questionary,
-        }
         await createQuestionary(questionaryToSend, session.accessToken)
 
         router.push('/')
@@ -29,25 +38,31 @@ const DynamicForm: FC<DynamicFormProps> = ({ initValue, operation }) => {
       }
     }
 
-    // if (operation === 'edit') {
-    //   try {
-    //     createQuestionary( , session.accessToken)
-    //   } catch {
+    if (operation === 'edit') {
+      try {
+        await editQuestionary(
+          questionary._id.toString(),
+          questionaryToSend,
+          session.accessToken
+        )
 
-    //   }
-    // }
+        router.push('/')
+      } catch (err) {
+        return null
+      }
+    }
   }
 
   return (
     <Form
       name="dynamic_form_nest_item"
       onFinish={onFinish}
-      initialValues={{ questionary: initValue ?? null }}
+      initialValues={{ ...initValue }}
       autoComplete="off"
     >
       <Form.Item
         className={styles['questionary-title']}
-        name={['questionaryTitle']}
+        name={['title']}
         label="Questionary Title"
         rules={[
           {

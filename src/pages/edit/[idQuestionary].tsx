@@ -1,8 +1,19 @@
-import { NextPage } from 'next'
+import { NextPage, GetServerSideProps } from 'next'
 import { EditQuestionary, Hero } from '../../components/organisms'
 import { HeadSeo, Layout } from '../../components/templates'
+import { getSession } from 'next-auth/react'
+import { getQuestionaryById } from '../../services/vivatranslate'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { useEffect } from 'react'
+import { setQuestionary } from '../../actions/quizActions'
 
-const EditPage: NextPage = () => {
+const EditPage: NextPage = ({ questionary }: any) => {
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(setQuestionary(questionary))
+  }, [dispatch, questionary])
+
   return (
     <>
       <HeadSeo title="Quiz | Edit" />
@@ -16,3 +27,50 @@ const EditPage: NextPage = () => {
 }
 
 export default EditPage
+
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  query,
+}) => {
+  const session = await getSession({ req })
+  const { idQuestionary } = query
+
+  // Redirect to Login
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/api/auth/signin',
+        permanent: false,
+      },
+    }
+  }
+
+  const getDataQuestionary = async (id: string) => {
+    try {
+      const resp = await getQuestionaryById(id)
+      return {
+        resp,
+      }
+    } catch (err) {
+      return null
+    }
+  }
+
+  const dataQuestionary = await getDataQuestionary(idQuestionary.toString())
+
+  // Redirect to HomePage
+  if (!dataQuestionary) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {
+      questionary: dataQuestionary.resp.data,
+    },
+  }
+}
