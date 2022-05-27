@@ -6,6 +6,7 @@ export interface quizProps {
   questionnaires: QuestionaryProps[]
   questionary: QuestionaryProps
   myChoice: MyChoiceProps
+  myQuestionaries: QuestionaryProps[]
 }
 
 export interface QuestionaryProps {

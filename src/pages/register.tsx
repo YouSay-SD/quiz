@@ -8,6 +8,7 @@ import { HeadSeo, Layout } from '../components/templates'
 import { register } from '../services/vivatranslate'
 import { useForm } from 'antd/lib/form/Form'
 import { Hero } from '../components/organisms'
+import Link from 'next/link'
 
 const Register: NextPage = () => {
   const router = useRouter()
@@ -106,9 +107,23 @@ const Register: NextPage = () => {
             </Form.Item>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit">
+              <Button
+                type="primary"
+                htmlType="submit"
+                style={{
+                  marginRight: '20px',
+                }}
+              >
                 Register
               </Button>
+
+              <Link href="/login">
+                <a href="/login">
+                  <Button type="primary" htmlType="submit">
+                    Or Login
+                  </Button>
+                </a>
+              </Link>
             </Form.Item>
           </Form>
         </Container>

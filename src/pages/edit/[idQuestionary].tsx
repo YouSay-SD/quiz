@@ -1,5 +1,5 @@
 import { NextPage, GetServerSideProps } from 'next'
-import { EditQuestionary, Hero } from '../../components/organisms'
+import { EditQuestionary, Hero, Menu } from '../../components/organisms'
 import { HeadSeo, Layout } from '../../components/templates'
 import { getSession } from 'next-auth/react'
 import { getQuestionaryById } from '../../services/vivatranslate'
@@ -19,6 +19,7 @@ const EditPage: NextPage = ({ questionary }: any) => {
       <HeadSeo title="Quiz | Edit" />
 
       <Layout>
+        <Menu />
         <Hero title="Edit your Quiz!" />
         <EditQuestionary />
       </Layout>
@@ -39,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   if (!session) {
     return {
       redirect: {
-        destination: '/api/auth/signin',
+        destination: '/login',
         permanent: false,
       },
     }

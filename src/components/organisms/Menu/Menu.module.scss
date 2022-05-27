@@ -1,15 +1,31 @@
+@import "../../../styles/baseline/_styles";
+
 .menu {
   padding: 7px 0;
 }
 
 .container {
   display: flex;
+
+  @include respond-to($bp-md) {
+    flex-direction: column;
+  }
 }
 
 .btn {
   margin-right: 4px;
+
+  @include respond-to($bp-md) {
+    margin-bottom: 4px;
+    width: 100%;
+
+    button {
+      width: 100%;
+    }
+  }
 }
 
 .btn-logout {
   margin-left: auto !important;
+
 }

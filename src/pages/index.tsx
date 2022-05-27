@@ -1,18 +1,16 @@
 import { NextPage, GetServerSideProps } from 'next'
-import { getSession, useSession } from 'next-auth/react'
-import { Hero, Questionnaires } from '../components/organisms'
+import { getSession } from 'next-auth/react'
+import { Hero, Menu, Questionnaires } from '../components/organisms'
 import { HeadSeo, Layout } from '../components/templates'
 import { getAllQuestionaries } from '../services/vivatranslate'
 
 const IndexPage: NextPage = ({ questionaries }: any) => {
-  const { data: session } = useSession()
-  console.log('session', session)
-
   return (
     <>
       <HeadSeo title="Quiz" />
 
       <Layout>
+        <Menu />
         <Hero title="Play one of them!" />
         <Questionnaires questionnaires={questionaries} />
       </Layout>
@@ -42,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   if (!session) {
     return {
       redirect: {
-        destination: '/api/auth/signin',
+        destination: '/login',
         permanent: false,
       },
     }

@@ -1,5 +1,5 @@
 import { NextPage, GetServerSideProps } from 'next'
-import { CreateQuestionary, Hero } from '../components/organisms'
+import { CreateQuestionary, Hero, Menu } from '../components/organisms'
 import { HeadSeo, Layout } from '../components/templates'
 import { getSession } from 'next-auth/react'
 
@@ -9,6 +9,7 @@ const Create: NextPage = () => {
       <HeadSeo title="Quiz | Create" />
 
       <Layout>
+        <Menu />
         <Hero title="Create your Quiz!" />
         <CreateQuestionary />
       </Layout>
@@ -25,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   if (!session) {
     return {
       redirect: {
-        destination: '/api/auth/signin',
+        destination: '/login',
         permanent: false,
       },
     }

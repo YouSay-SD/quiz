@@ -6,6 +6,7 @@ const initState: quizProps = {
   questionnaires: [],
   questionary: null,
   myChoice: null,
+  myQuestionaries: [],
 }
 
 const quizReducer = (state = initState, action: AnyAction): quizProps => {
@@ -14,6 +15,12 @@ const quizReducer = (state = initState, action: AnyAction): quizProps => {
       return {
         ...state,
         questionary: action.payload,
+      }
+
+    case types.SET_MY_QUESTIONARIES:
+      return {
+        ...state,
+        myQuestionaries: action.payload,
       }
 
     case types.SET_MY_CHOICE:

@@ -1,17 +1,29 @@
 import { NextPage, GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/react'
-import { Hero, Questionnaires } from '../components/organisms'
+import { Hero, Menu, Questionnaires } from '../components/organisms'
 import { HeadSeo, Layout } from '../components/templates'
+import { useAppSelector } from '../hooks/useAppSelector'
 import { getMyQuestionaries } from '../services/vivatranslate'
+import { useEffect } from 'react'
+import { setMyQuestionaries } from '../actions/quizActions'
+import { useAppDispatch } from '../hooks/useAppDispatch'
 
 const MePage: NextPage = ({ questionaries }: any) => {
+  const dispatch = useAppDispatch()
+  const { myQuestionaries } = useAppSelector((store) => store.quiz)
+
+  useEffect(() => {
+    dispatch(setMyQuestionaries(questionaries))
+  }, [dispatch, questionaries])
+
   return (
     <>
       <HeadSeo title="Quiz | My Questionaries" />
 
       <Layout>
+        <Menu />
         <Hero title="My Questionaries" />
-        <Questionnaires questionnaires={questionaries} showButtons={true} />
+        <Questionnaires questionnaires={myQuestionaries} showButtons={true} />
       </Layout>
     </>
   )
@@ -39,7 +51,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   if (!session) {
     return {
       redirect: {
-        destination: '/api/auth/signin',
+        destination: '/login',
         permanent: false,
       },
     }

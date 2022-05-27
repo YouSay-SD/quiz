@@ -5,14 +5,20 @@ import Link from 'next/link'
 import { Button } from 'antd'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { useRouter } from 'next/router'
-import { deleteQuestionaryById } from '../../../services/vivatranslate'
+import {
+  deleteQuestionaryById,
+  getMyQuestionaries,
+} from '../../../services/vivatranslate'
 import { useSession } from 'next-auth/react'
+import { setMyQuestionaries } from '../../../actions/quizActions'
+import { useAppDispatch } from '../../../hooks/useAppDispatch'
 
 const QuestionaryCard: FC<QuestionaryCardProps> = ({
   title,
   id,
   showButtons,
 }) => {
+  const dispatch = useAppDispatch()
   const { data: session } = useSession()
   const route = useRouter()
 
@@ -21,14 +27,26 @@ const QuestionaryCard: FC<QuestionaryCardProps> = ({
   }
 
   const deleteQuestionary = async () => {
-    console.log('ID', id)
     try {
       const resp = await deleteQuestionaryById(
         id.toString(),
         session.accessToken
       )
-      return {
-        resp,
+
+      if (resp) {
+        const getMyDataQuestionaries = async () => {
+          try {
+            const resp = await getMyQuestionaries(session.accessToken)
+            return {
+              resp,
+            }
+          } catch (err) {
+            return null
+          }
+        }
+
+        const dataQuestionaries = await getMyDataQuestionaries()
+        dispatch(setMyQuestionaries(dataQuestionaries?.resp.data))
       }
     } catch (err) {
       return null

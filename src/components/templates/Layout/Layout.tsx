@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import Menu from '../../organisms/Menu/Menu'
 import { motion, MotionConfig } from 'framer-motion'
 import { LayoutProps } from './interface'
 
@@ -28,7 +27,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
           },
         }}
       >
-        <Menu />
         <main>{children}</main>
       </motion.div>
     </MotionConfig>
