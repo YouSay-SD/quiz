@@ -11,14 +11,14 @@ const QuestionResult: FC<QuestionResultProps> = ({ question, result }) => {
       </Title>
 
       <div className={styles.options}>
-        {question.options?.map(({ option, isCorrect }, index) => (
+        {question.options?.map(({ title, isCorrect }, index) => (
           <div
             key={index}
             className={`${styles.option} ${
-              option === result.choice ? styles.selected : null
+              title === result.choice ? styles.selected : null
             } ${isCorrect ? styles.active : null} `}
           >
-            <P size="sm">{option}</P>
+            <P size="sm">{title}</P>
           </div>
         ))}
       </div>

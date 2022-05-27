@@ -17,15 +17,13 @@ const MyResult: FC<MyResultProps> = ({ questionary, myChoice }) => {
     <section>
       <Container>
         <div className={styles.result}>
-          {questionary?.questions.map((question) => {
-            const choice = myChoice.find(({ id }) => id === question.id)
+          {questionary?.questions.map((question, index) => {
+            const choice = myChoice.find(
+              (choice) => choice.question == question.title
+            )
 
             return (
-              <QuestionResult
-                key={question.id}
-                question={question}
-                result={choice}
-              />
+              <QuestionResult key={index} question={question} result={choice} />
             )
           })}
         </div>

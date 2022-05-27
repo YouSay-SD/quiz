@@ -10,7 +10,7 @@ export const GET_MY_QUESTIONARIES_ENDPOINT = `${API}/questionary/me`
 
 export const GET_ALL_QUESTIONARIES_ENDPOINT = `${API}/questionary`
 
-export const GET_QUESTIONARY_BY_ID_ENDPOINT = `${API}/questionary/{id}`
+export const GET_QUESTIONARY_BY_ID_ENDPOINT = `${API}/questionary`
 
 export const REGISTER_ENDPOINT = `${API}/auth/register`
 

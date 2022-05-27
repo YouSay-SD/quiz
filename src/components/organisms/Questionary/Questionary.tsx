@@ -2,7 +2,7 @@
 import styles from './Questionary.module.scss'
 import 'antd/dist/antd.css'
 import { FC, useState, useEffect } from 'react'
-import { Button, Checkbox, message, Steps } from 'antd'
+import { Steps } from 'antd'
 import { Container, P, Title } from '../../atoms'
 import { useAppSelector } from '../../../hooks/useAppSelector'
 import { useRouter } from 'next/router'
@@ -18,16 +18,10 @@ const Questionary: FC = () => {
   const router = useRouter()
   const currentQuestion = questionary?.questions[current]
   const questionaryQuantity = questionary?.questions.length
-  console.log('c', currentQuestion)
+
   const next = () => {
     setCurrent(current + 1)
-    console.log('current', current)
-    console.log('steps', questionary.questions.length)
   }
-
-  // const prev = () => {
-  //   setCurrent(current - 1)
-  // }
 
   const goToResult = () => {
     router.push({
@@ -39,7 +33,6 @@ const Questionary: FC = () => {
     setValue([
       ...value,
       {
-        id: currentQuestion?.id,
         question: currentQuestion?.title,
         choice: option,
       },
@@ -62,8 +55,8 @@ const Questionary: FC = () => {
     <section>
       <Container>
         <Steps current={current} className={styles.steps}>
-          {questionary?.questions.map(({ id }) => (
-            <Step key={id} />
+          {questionary?.questions.map((question, index) => (
+            <Step key={index} />
           ))}
         </Steps>
 
@@ -75,43 +68,22 @@ const Questionary: FC = () => {
           </div>
 
           <div className={styles['question-options']}>
-            {currentQuestion?.options.map(({ option }, index) => (
+            {currentQuestion?.options.map(({ title }, index) => (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
               // eslint-disable-next-line jsx-a11y/no-static-element-interactions
               <div
                 key={index}
                 className={styles['option-container']}
-                onClick={() => handleClick(option)}
+                onClick={() => handleClick(title)}
               >
                 {/* <Checkbox onChange={onChangeCheckbox} /> */}
-                <P size="sm">{option}</P>
+                <P size="sm">{title}</P>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="steps-action">
-          {/* {current < questionaryQuantity - 1 && (
-            <Button type="primary" onClick={() => next()}>
-              Next
-            </Button>
-          )} */}
-          {/* {current === questionaryQuantity - 1 && (
-            <Button type="primary" onClick={goToResult}>
-              Done
-            </Button>
-          )} */}
-          {/* {current > 0 && (
-            <Button
-              style={{
-                margin: '0 8px',
-              }}
-              onClick={() => prev()}
-            >
-              Previous
-            </Button>
-          )} */}
-        </div>
+        <div className="steps-action"></div>
       </Container>
     </section>
   )

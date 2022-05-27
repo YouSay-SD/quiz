@@ -3,8 +3,8 @@ import { useEffect } from 'react'
 import { setQuestionary } from '../../actions/quizActions'
 import { Hero, Questionary } from '../../components/organisms'
 import { HeadSeo, Layout } from '../../components/templates'
-import { questionnaires } from '../../data/data'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { getQuestionaryById } from '../../services/vivatranslate'
 
 const QuestionaryPage: NextPage = ({ questionary }: any) => {
   const dispatch = useAppDispatch()
@@ -31,35 +31,33 @@ export default QuestionaryPage
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const { idQuestionary } = query
-  const dataQuestionary = questionnaires.find(({ id }) => id == idQuestionary)
 
-  // const getDataQuestionary = async () => {
-  //   try {
-  //     const resp = await getQuestionary(idQuestionary)
-  //     return {
-  //       resp,
-  //     }
-  //   } catch (err) {
-  //     return null
-  //   }
-  // }
+  const getDataQuestionary = async (id: string) => {
+    try {
+      const resp = await getQuestionaryById(id)
+      return {
+        resp,
+      }
+    } catch (err) {
+      return null
+    }
+  }
 
-  // const dataQuestionary = await getDataQuestionary()
+  const dataQuestionary = await getDataQuestionary(idQuestionary.toString())
 
-  // // Redirect to HomePage
-  // if (!dataQuestionary) {
-  //   return {
-  //     redirect: {
-  //       destination: '/',
-  //       permanent: false,
-  //     },
-  //   }
-  // }
+  // Redirect to HomePage
+  if (!dataQuestionary) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
 
   return {
     props: {
-      // questionary: dataQuestionary.resp.data,
-      questionary: dataQuestionary,
+      questionary: dataQuestionary.resp.data,
     },
   }
 }

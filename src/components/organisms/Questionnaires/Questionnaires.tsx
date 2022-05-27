@@ -7,8 +7,8 @@ const Questionnaires: FC<QuestionnairesProps> = ({ questionnaires }) => {
   return (
     <section className={styles.questionnaires}>
       <Container className={styles.container}>
-        {questionnaires.map(({ id, title }) => (
-          <QuestionaryCard key={id} id={id} title={title} />
+        {questionnaires.map(({ _id, title }) => (
+          <QuestionaryCard key={_id} id={_id} title={title} />
         ))}
       </Container>
     </section>

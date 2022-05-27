@@ -5,12 +5,10 @@ export interface quizProps {
 }
 
 export interface QuestionaryProps {
-  id: number | string
+  _id: number | string
   title: string
-  author: {
-    userName: string
-    userId: number | string
-  }
+  email: string
+  __v?: string | number
   questions: QuestionProps[]
 }
 
@@ -21,7 +19,7 @@ export interface QuestionProps {
 }
 
 export interface QuestionOptionProps {
-  option: string
+  title: string
   isCorrect: boolean
 }
 
