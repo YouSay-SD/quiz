@@ -1,9 +1,9 @@
 import axios from 'axios'
-
 import {
   RequestQuestionary,
   ResponseQuestionary,
 } from '../interfaces/questionary.interface'
+import { RequestLogin } from '../interfaces/auth.interface'
 import {
   CREATE_QUESTIONARY_ENDPOINT,
   DELETE_QUESTIONARY_ENDPOINT,
@@ -11,21 +11,22 @@ import {
   GET_ALL_QUESTIONARIES_ENDPOINT,
   GET_MY_QUESTIONARIES_ENDPOINT,
   GET_QUESTIONARY_BY_ID_ENDPOINT,
+  LOGIN_ENDPOINT,
+  REGISTER_ENDPOINT,
 } from '../constants'
 
-/**
- * Por el momento harcodear el Token que se obtiene al logearse desde la api
- */
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BACKEND,
   headers: {
     'Content-Type': 'application/json',
-    Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVuem9nZXJvbkBnbWFpbC5jb20iLCJpYXQiOjE2NTM2MDk1NjUsImV4cCI6MTY1NDIxNDM2NX0.tvMfx5vgrWq_wI1nK56gStg3gLUWZPm83Q0YQ6kDqY8',
   },
 })
 
-export const createQuestionary = async (questionary: RequestQuestionary) => {
+export const createQuestionary = async (
+  questionary: RequestQuestionary,
+  jwt: string
+) => {
+  instance.defaults.headers.common['Authorization'] = `Bearer ${jwt}`
   return instance.post<ResponseQuestionary>(
     `${CREATE_QUESTIONARY_ENDPOINT}`,
     questionary
@@ -34,15 +35,21 @@ export const createQuestionary = async (questionary: RequestQuestionary) => {
 
 export const editQuestionary = async (
   idQuestionary: string,
-  questionary: RequestQuestionary
+  questionary: RequestQuestionary,
+  jwt: string
 ) => {
+  instance.defaults.headers.common['Authorization'] = `Bearer ${jwt}`
   return instance.put<ResponseQuestionary>(
     `${EDIT_QUESTIONARY_ENDPOINT}/${idQuestionary}`,
     questionary
   )
 }
 
-export const deleteQuestionaryById = async (idQuestionary: string) => {
+export const deleteQuestionaryById = async (
+  idQuestionary: string,
+  jwt: string
+) => {
+  instance.defaults.headers.common['Authorization'] = `Bearer ${jwt}`
   return instance.delete<ResponseQuestionary>(
     `${DELETE_QUESTIONARY_ENDPOINT}/${idQuestionary}`
   )
@@ -60,6 +67,16 @@ export const getAllQuestionaries = async () => {
   )
 }
 
-export const getMyQuestionaries = async () => {
+export const getMyQuestionaries = async (jwt: string) => {
+  console.log('jwt: ', jwt)
+  instance.defaults.headers.common['Authorization'] = `Bearer ${jwt}`
   return instance.get<ResponseQuestionary[]>(`${GET_MY_QUESTIONARIES_ENDPOINT}`)
+}
+
+export const login = async (user: RequestLogin) => {
+  return instance.post(`${LOGIN_ENDPOINT}`, user)
+}
+
+export const register = async (user: RequestLogin) => {
+  return instance.post(`${REGISTER_ENDPOINT}`, user)
 }
