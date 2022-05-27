@@ -1,24 +1,36 @@
 export interface quizProps {
-  questionnaires: questionaryProps[]
+  questionnaires: QuestionaryProps[]
+  questionary: QuestionaryProps
+  myChoice: MyChoiceProps
 }
 
-export interface questionaryProps {
+export interface QuestionaryProps {
   id: number | string
   title: string
   author: {
     userName: string
     userId: number | string
   }
-  questions: questionProps[]
+  questions: QuestionProps[]
 }
 
-export interface questionProps {
+export interface QuestionProps {
   id: number | string
   title: string
-  options: questionOptionProps[]
+  options: QuestionOptionProps[]
 }
 
-export interface questionOptionProps {
+export interface QuestionOptionProps {
   option: string
   isCorrect: boolean
+}
+
+export interface MyChoiceProps {
+  myChoice: ChoiceProps[]
+}
+
+export interface ChoiceProps {
+  id: number
+  question: string
+  choice: string
 }

@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import { EditQuestionary, Hero } from '../../components/organisms'
 import { HeadSeo, Layout } from '../../components/templates'
 
-const Create: NextPage = () => {
+const EditPage: NextPage = () => {
   return (
     <>
       <HeadSeo title="Quiz | Edit" />
@@ -15,4 +15,4 @@ const Create: NextPage = () => {
   )
 }
 
-export default Create
+export default EditPage
