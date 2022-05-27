@@ -1,5 +1,5 @@
 import { NextPage, GetServerSideProps } from 'next'
-import { getSession, useSession } from 'next-auth/react'
+import { getSession } from 'next-auth/react'
 import { Hero, Questionnaires } from '../components/organisms'
 import { HeadSeo, Layout } from '../components/templates'
 import { getMyQuestionaries } from '../services/vivatranslate'

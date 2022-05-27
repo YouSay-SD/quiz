@@ -1,8 +1,9 @@
 import { FC } from 'react'
 import Menu from '../../organisms/Menu/Menu'
 import { motion, MotionConfig } from 'framer-motion'
+import { LayoutProps } from './interface'
 
-const Layout: FC = ({ children }: any) => {
+const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <MotionConfig transition={{ duration: 0.7 }}>
       <motion.div

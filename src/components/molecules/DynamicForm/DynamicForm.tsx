@@ -1,8 +1,8 @@
 import styles from './DynamicForm.module.scss'
 import 'antd/dist/antd.css'
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
-import { Button, Checkbox, Form, Input, Space, Switch } from 'antd'
+import { Button, Form, Input, Space, Switch } from 'antd'
 import { DynamicFormProps } from './interface'
 import {
   createQuestionary,
@@ -17,12 +17,7 @@ const DynamicForm: FC<DynamicFormProps> = ({ initValue = null, operation }) => {
   const { data: session } = useSession()
   const router = useRouter()
 
-  console.log('INIT VALUE', initValue)
-  console.log('questionary', questionary)
-
   const onFinish = async (values) => {
-    console.log('Received values of form:', values)
-
     const questionaryToSend = {
       title: values.title,
       questions: values.questionary,

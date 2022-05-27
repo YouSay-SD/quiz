@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 // import App from "next/app";
 import type { AppProps /*, AppContext */ } from 'next/app'
 import { Provider } from 'react-redux'
@@ -7,28 +8,16 @@ import { AnimatePresence } from 'framer-motion'
 import 'antd/dist/antd.css'
 import '../styles/globals.scss'
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp = ({ Component, pageProps, router }: AppProps) => {
   return (
-    <Provider store={store}>
-      <SessionProvider session={pageProps.session}>
-        <AnimatePresence exitBeforeEnter>
-          <Component {...pageProps} />
-        </AnimatePresence>
-      </SessionProvider>
-    </Provider>
+    <SessionProvider session={pageProps.session}>
+      <AnimatePresence exitBeforeEnter>
+        <Provider store={store}>
+          <Component {...pageProps} key={router.asPath} />
+        </Provider>
+      </AnimatePresence>
+    </SessionProvider>
   )
 }
-
-// Only uncomment this method if you have blocking data requirements for
-// every single page in your application. This disables the ability to
-// perform automatic static optimization, causing every page in your app to
-// be server-side rendered.
-//
-// MyApp.getInitialProps = async (appContext: AppContext) => {
-//   // calls page's `getInitialProps` and fills `appProps.pageProps`
-//   const appProps = await App.getInitialProps(appContext);
-
-//   return { ...appProps }
-// }
 
 export default MyApp
