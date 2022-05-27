@@ -1,0 +1,14 @@
+@import "../../../styles/baseline/_styles";
+
+.questionary-card {
+  padding: 20px;
+  display: flex;
+  border: 1px solid $color-grey;
+  align-items: center;
+}
+
+.buttons {
+  margin-left: auto;
+  gap: 10px;
+  display: flex;
+}

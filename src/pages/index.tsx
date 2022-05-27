@@ -23,6 +23,7 @@ export default IndexPage
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req })
+
   const getDataQuestionary = async () => {
     try {
       const resp = await getAllQuestionaries()

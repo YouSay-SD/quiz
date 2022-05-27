@@ -2,9 +2,9 @@ const API = process.env.NEXT_PUBLIC_API_BACKEND
 
 export const CREATE_QUESTIONARY_ENDPOINT = `${API}/questionary/create`
 
-export const EDIT_QUESTIONARY_ENDPOINT = `${API}/questionary/edit/{id}`
+export const EDIT_QUESTIONARY_ENDPOINT = `${API}/questionary/edit`
 
-export const DELETE_QUESTIONARY_ENDPOINT = `${API}/questionary/delete/{id}`
+export const DELETE_QUESTIONARY_ENDPOINT = `${API}/questionary/delete`
 
 export const GET_MY_QUESTIONARIES_ENDPOINT = `${API}/questionary/me`
 

@@ -21,10 +21,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "antd": "^4.20.2",
     "axios": "^0.27.2",
-    "next": "12",
     "framer-motion": "^6.3.4",
+    "next": "12",
     "next-auth": "^4.3.4",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

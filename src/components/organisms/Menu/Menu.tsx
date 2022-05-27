@@ -6,9 +6,13 @@ import Link from 'next/link'
 const Menu: FC = () => {
   return (
     <div>
-      <Button type="primary" htmlType="submit" onClick={() => signOut()}>
-        Log Out
-      </Button>
+      <Link href="/">
+        <a href="/">
+          <Button type="primary" htmlType="submit">
+            Home | All Questionaries
+          </Button>
+        </a>
+      </Link>
 
       <Link href="/create">
         <a href="/create">
@@ -17,6 +21,18 @@ const Menu: FC = () => {
           </Button>
         </a>
       </Link>
+
+      <Link href="/me">
+        <a href="/me">
+          <Button type="primary" htmlType="submit">
+            My Questionaries
+          </Button>
+        </a>
+      </Link>
+
+      <Button type="primary" htmlType="submit" onClick={() => signOut()}>
+        Log Out
+      </Button>
     </div>
   )
 }
