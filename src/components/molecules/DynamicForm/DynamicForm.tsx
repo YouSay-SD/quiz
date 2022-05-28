@@ -1,8 +1,8 @@
 import styles from './DynamicForm.module.scss'
 import 'antd/dist/antd.css'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
-import { Button, Form, Input, Space, Switch } from 'antd'
+import { Button, Form, Input, Space, Spin, Switch } from 'antd'
 import { DynamicFormProps } from './interface'
 import {
   createQuestionary,
@@ -14,6 +14,7 @@ import { useAppSelector } from '../../../hooks/useAppSelector'
 
 const DynamicForm: FC<DynamicFormProps> = ({ initValue = null, operation }) => {
   const { questionary } = useAppSelector((state) => state.quiz)
+  const [isLoading, setIsLoading] = useState(false)
   const { data: session } = useSession()
   const router = useRouter()
 
@@ -23,28 +24,24 @@ const DynamicForm: FC<DynamicFormProps> = ({ initValue = null, operation }) => {
       questions: values.questionary,
     }
 
-    if (operation === 'create') {
-      try {
+    try {
+      setIsLoading(true)
+
+      if (operation === 'create') {
         await createQuestionary(questionaryToSend, session.accessToken)
-
-        router.push('/')
-      } catch (err) {
-        return null
       }
-    }
 
-    if (operation === 'edit') {
-      try {
+      if (operation === 'edit') {
         await editQuestionary(
           questionary._id.toString(),
           questionaryToSend,
           session.accessToken
         )
-
-        router.push('/')
-      } catch (err) {
-        return null
       }
+      setIsLoading(false)
+      router.push('/')
+    } catch (err) {
+      return null
     }
   }
 
@@ -168,8 +165,9 @@ const DynamicForm: FC<DynamicFormProps> = ({ initValue = null, operation }) => {
         )}
       </Form.List>
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" disabled={isLoading}>
           Submit
+          {isLoading ? <Spin /> : null}
         </Button>
       </Form.Item>
     </Form>

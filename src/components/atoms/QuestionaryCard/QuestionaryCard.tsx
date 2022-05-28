@@ -1,8 +1,8 @@
 import styles from './QuestionaryCard.module.scss'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { QuestionaryCardProps } from './interface'
 import Link from 'next/link'
-import { Button } from 'antd'
+import { Button, Spin } from 'antd'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { useRouter } from 'next/router'
 import {
@@ -18,6 +18,7 @@ const QuestionaryCard: FC<QuestionaryCardProps> = ({
   id,
   showButtons,
 }) => {
+  const [isLoading, setIsLoading] = useState(false)
   const dispatch = useAppDispatch()
   const { data: session } = useSession()
   const route = useRouter()
@@ -28,6 +29,7 @@ const QuestionaryCard: FC<QuestionaryCardProps> = ({
 
   const deleteQuestionary = async () => {
     try {
+      setIsLoading(true)
       const resp = await deleteQuestionaryById(
         id.toString(),
         session.accessToken
@@ -47,6 +49,7 @@ const QuestionaryCard: FC<QuestionaryCardProps> = ({
 
         const dataQuestionaries = await getMyDataQuestionaries()
         dispatch(setMyQuestionaries(dataQuestionaries?.resp.data))
+        setIsLoading(false)
       }
     } catch (err) {
       return null
@@ -61,16 +64,19 @@ const QuestionaryCard: FC<QuestionaryCardProps> = ({
 
       {showButtons ? (
         <div className={styles.buttons}>
+          {isLoading ? <Spin /> : null}
           <Button
             type="primary"
             icon={<EditOutlined />}
             onClick={editQuestionary}
+            disabled={isLoading}
           />
           <Button
             type="primary"
             danger
             icon={<DeleteOutlined />}
             onClick={deleteQuestionary}
+            disabled={isLoading}
           />
         </div>
       ) : null}
