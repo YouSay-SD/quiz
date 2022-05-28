@@ -69,9 +69,8 @@ const DynamicForm: FC<DynamicFormProps> = ({ initValue = null, operation }) => {
         {(fields, { add, remove }) => (
           <>
             {fields.map(({ key, name, ...restField }) => (
-              <>
+              <div key={key}>
                 <Space
-                  key={key}
                   style={{
                     display: 'flex',
                     marginBottom: 8,
@@ -124,6 +123,7 @@ const DynamicForm: FC<DynamicFormProps> = ({ initValue = null, operation }) => {
                           </Form.Item>
                           <Form.Item
                             {...restField}
+                            valuePropName="checked"
                             name={[name, 'isCorrect']}
                             label="Is correct?"
                           >
@@ -147,7 +147,7 @@ const DynamicForm: FC<DynamicFormProps> = ({ initValue = null, operation }) => {
                     </div>
                   )}
                 </Form.List>
-              </>
+              </div>
             ))}
             <Form.Item>
               <Button
